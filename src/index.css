@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* MCh NeoBau — Georgian (from typeface.ge) */
+@font-face {
+  font-family: 'MCh NeoBau';
+  src: url('/fonts/MChNeoBau-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MCh NeoBau';
+  src: url('/fonts/MChNeoBau-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MCh NeoBau';
+  src: url('/fonts/MChNeoBau-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MCh NeoBau';
+  src: url('/fonts/MChNeoBau-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+  Brand colors from the Olea identity sheet.
+  paper = page background, ink = body text.
+  cream = fixed light text on primary bands / hero (never swaps to dark).
+*/
+:root {
+  --brand-primary: 90 110 48; /* #5A6E30 */
+  --brand-secondary: 220 229 210; /* #DCE5D2 */
+  --brand-accent: 120 136 48; /* #788830 */
+  --brand-ink: 28 33 18; /* #1C2112 */
+  --brand-paper: 243 241 232; /* #F3F1E8 */
+  --brand-cream: 255 252 245; /* brighter cream for hero readability */
+}
+
+html.dark {
+  --brand-primary: 107 128 58; /* #6B803A */
+  --brand-secondary: 40 48 32;
+  --brand-accent: 186 198 120;
+  --brand-ink: 242 240 232;
+  --brand-paper: 16 18 12;
+  --brand-cream: 255 252 245;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-brand-paper font-body text-brand-ink antialiased transition-colors duration-300;
+  }
+
+  /* Prefer NeoBau when the site language is Georgian */
+  html[lang='ka'] body {
+    font-family: 'MCh NeoBau', 'Libre Caslon Condensed', Georgia, serif;
+  }
+
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-brand-accent;
+  }
+
+  ::selection {
+    @apply bg-brand-secondary text-brand-ink;
+  }
+
+  input,
+  textarea,
+  select {
+    @apply text-brand-ink;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .hero-text-shadow {
+    text-shadow:
+      0 1px 2px rgb(0 0 0 / 0.55),
+      0 8px 24px rgb(0 0 0 / 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
